@@ -3,6 +3,7 @@ const path = require('path');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Manifest = require('webpack-manifest');
 
 module.exports = {
     entry: {
@@ -17,7 +18,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '../build/'),
-        filename: 'public/scripts/[name]-[hash:5].js'
+        filename: 'public/scripts/[name].js'
     },
     module: {
         rules: [
@@ -45,10 +46,10 @@ module.exports = {
             'process.env.NODE_ENV': '"dev"',
         }),
         new LiveReloadPlugin({ appendScriptTag: true }),
-        new ExtractTextPlugin("public/css/[name]-[hash:5].css"),
+        new ExtractTextPlugin("public/css/[name].css"),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
-            filename: 'public/scripts/common/vendor-[hash:5].min.js',
+            filename: 'public/scripts/common/vendor.min.js',
         }),
         new HtmlWebpackPlugin({
             filename: 'views/layout.html',
@@ -76,6 +77,25 @@ module.exports = {
             filename: 'widget/star.html',
             template: 'src/widget/star.html', // 星星组件
             inject: false
+        }),
+        new Manifest({
+            cache: [
+              './public/css/vendor.css'
+            ],
+            //Add time in comments.
+            timestamp: true,
+            // 生成的文件名字，选填
+            // The generated file name, optional.
+            filename:'cache.manifest', 
+            // 注意*星号前面用空格隔开
+            network: [
+              ' *',
+            ],
+            // 注意中间用空格隔开
+            // manifest 文件中添加注释
+            // Add notes to manifest file.
+            headcomment:'praisethumb4', 
+            master: ['./views/layout.html']
         })
     ]
-}
+};

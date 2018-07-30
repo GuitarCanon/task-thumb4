@@ -3,6 +3,7 @@ const path = require('path');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -11,11 +12,13 @@ module.exports = {
             path.join(__dirname, '../src/public/scripts/indexadd.es6')
         ],
         tag: [
-            path.join(__dirname, '../src/public/scripts/tag.es6')
+            path.join(__dirname, '../src/public/scripts/tag.es6'),
+            path.join(__dirname, '../src/public/scripts/star.es6')
         ]
     },
     output: {
         path: path.join(__dirname, '../build/'),
+        publicPath: 'http://192.168.0.107:3000/',
         filename: 'public/scripts/[name]-[hash:5].js'
     },
     module: {
@@ -61,5 +64,32 @@ module.exports = {
             name: 'vendor',
             filename: 'public/scripts/common/vendor-[hash:5].min.js',
         }),
+        new HtmlWebpackPlugin({
+            filename: 'views/layout.html',
+            template: 'src/widget/layout.html',
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'views/index.html',
+            template: 'src/views/index.js',  // 点赞页面
+            inject: false,
+            chunks: ['vendor', 'index', 'tag']  // 点赞页面分发
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'widget/index.html',
+            template: 'src/widget/index.html', // 点赞组件
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'views/star.html',
+            template: 'src/views/star.js',  // 星星页面
+            inject: false,
+            chunks: ['vendor', 'index', 'tag'] // 星星页面分发
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'widget/star.html',
+            template: 'src/widget/star.html', // 星星组件
+            inject: false
+        })
     ]
 }
