@@ -9,7 +9,20 @@ module.exports = function (templateParams) {
         "{% endblock %}" +
         "{% block content %}{% include '../widget/index.html' %}{% endblock %}" + // 引入点赞组件
         "{% block script %}" +
-        webAssetsHelp.scripts +
+        //webAssetsHelp.scripts+
+        '<script>' +
+        '(function(){' +
+        'var scriptsshow=[' + webAssetsHelp.scriptsshow + '];' +
+        'for(let i=0;i<scriptsshow.length;i++){' +
+        'let a=scriptsshow[i];' +
+        'if (localStorage.getItem(a)){' +
+        '$("<scr"+"ipt>"+localStorage.getItem(a)+"</scr"+"ipt>").attr({type:"text/javascript",id:i}).appendTo($("head").remove("#"+i));' +
+        '}' + //end of if 
+        'else{$.getScript({url:a,success:function(data){localStorage.setItem(a,data)}});' + 
+        '}' + // end of else
+        '}' + // end of for
+        '})()' +  //end of function
+        '</script>'
         "{% endblock %}";
     return _html;
 
