@@ -1,16 +1,12 @@
-import {Thumb} from './index.es6';
-const f = new Thumb();
+
+import {Star} from './index.es6';
+const f = new Star();
 let t = "";
-xtag.register('x-praise', {
-    content: '<div class="hand" id="thumb">' +
-        '<div class="finger"></div>' +
-        '<div class="finger"></div>' +
-        '<div class="finger"></div>' +
-        '<div class="finger"></div>' +
-        '<div class="finger thumb"></div>' +
-        '<div class="arm"></div>' +
-        '</div>' +
-        '<span class="hide" id="animation">+1</span>',
+xtag.register('x-star', {
+    content: "<div class='star' id='star'>"+
+    "<div class='star1'></div>"+
+    "</div>"+
+    "<span class='hide' id='animation'>+1</span>",
     methods: {
         praise: function () {
             let _this = this;
@@ -25,7 +21,7 @@ xtag.register('x-praise', {
     events: {
         click: function(e) {
             let _this = this;
-            if (e.target.id == "thumb") {
+            if (e.target.id == "star") {
                 if (t) {
                     clearTimeout(t);
                 }

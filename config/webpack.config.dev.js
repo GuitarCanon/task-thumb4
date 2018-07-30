@@ -11,7 +11,8 @@ module.exports = {
             path.join(__dirname, '../src/public/scripts/indexadd.es6')
         ],
         tag: [
-            path.join(__dirname, '../src/public/scripts/tag.es6')
+            path.join(__dirname, '../src/public/scripts/tag.es6'),
+            path.join(__dirname, '../src/public/scripts/star.es6')
         ]
     },
     output: {
@@ -56,13 +57,24 @@ module.exports = {
         }),
         new HtmlWebpackPlugin({
             filename: 'views/index.html',
-            template: 'src/views/index.js',
+            template: 'src/views/index.js',  // 点赞页面
             inject: false,
-            chunks: ['vendor', 'index', 'tag']
+            chunks: ['vendor', 'index', 'tag']  // 点赞页面分发
         }),
         new HtmlWebpackPlugin({
             filename: 'widget/index.html',
-            template: 'src/widget/index.html',
+            template: 'src/widget/index.html', // 点赞组件
+            inject: false
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'views/star.html',
+            template: 'src/views/star.js',  // 星星页面
+            inject: false,
+            chunks: ['vendor', 'index', 'tag'] // 星星页面分发
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'widget/star.html',
+            template: 'src/widget/star.html', // 星星组件
             inject: false
         })
     ]
