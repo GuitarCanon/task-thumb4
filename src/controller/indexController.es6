@@ -34,7 +34,11 @@ const indexController = {
                 })  
             }
         }
+    },
+    advertisement() {
+        return async(ctx, next) => {
+            ctx.body = '<div style="background-color: #0f0;height: 150px; text-align: center;">这是广告</div>';
+        }
     }
 }
-
 export default indexController;
