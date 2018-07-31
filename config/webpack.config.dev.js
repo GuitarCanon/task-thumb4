@@ -94,8 +94,8 @@ module.exports = {
             // 注意中间用空格隔开
             // manifest 文件中添加注释
             // Add notes to manifest file.
-            headcomment:'praisethumb4', 
-            master: ['./views/layout.html']
+            headcomment:'task-thumb4', 
+            master: ['views/layout.html']
         })
     ]
 };
